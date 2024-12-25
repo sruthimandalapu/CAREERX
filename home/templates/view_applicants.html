@@ -1,0 +1,177 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f4f8ff; /* Light blue background */
+        }
+        .btn-custom {
+            font-size: 12px;
+            width: 20%;
+            margin-bottom: 10px;
+            background-color: navy;
+            color: white;
+            border: none;
+            margin-left: 850px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+        .btn-save{
+            font-size: 12px;
+            width:100%;
+            
+            background-color: navy;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: navy; /* Darker shade on hover */
+        }
+        .table-container {
+            margin-top: 30px;
+            font-family:'Times New Roman'
+
+        }
+        table {
+            width: 100%; /* Stretch the table to fill the container */
+            table-layout: fixed;
+        }
+        thead {
+            background-color: navy; /* Light blue color */
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .header {
+            padding-top: 20px;
+            text-align: center;
+            font-size: 50px;
+            color: navy; /* Light blue for the header */
+            font-family:'Times New Roman';
+
+        }
+    </style>
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-12 col-lg-10 col-xl-10">
+                    <!-- Header -->
+                    <div class="header">
+                        <h><b>APPLICANTS</b></h>
+                    </div>
+                    <a href="{% url 'dashboard' %}">
+                        <button class="btn btn-secondary btn-custom">Back to Dashboard</button>
+                    </a>
+                    <!-- Applicants Table -->
+                    <form method="POST" action="{% url 'view_applicants' %}">
+                        {% csrf_token %}
+                        <div class="table-container">
+                            <!-- Job Applicants -->
+                            <h4 class="mt-4">Job Applicants</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Role</th>
+                                        <th>Applicant</th>
+                                        <th>Date Applied</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for applicant in job_applicants %}
+                                    <tr>
+                                        <td>Job</td>
+                                        <td>{{ applicant.job.job_role }}</td>
+                                        <td>{{ applicant.student.full_name }}</td>
+                                        <td>{{ applicant.date_of_applied }}</td>
+                                        <td>
+                                            <form method="POST" action="{% url 'view_applicants' %}">
+                                                {% csrf_token %}
+                                                <select name="status" class="form-control">
+                                                    <option value="Pending" {% if applicant.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                                    <option value="Accepted" {% if applicant.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                                                    <option value="Rejected" {% if applicant.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                                </select>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="application_type" value="job">
+                                            <input type="hidden" name="application_id" value="{{ applicant.job_application_id }}">
+                                            <button type="submit" class="btn btn-save">Save</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6">No job applications available.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- Internship Applicants -->
+                            <h4 class="mt-4">Internship Applicants</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Role</th>
+                                        <th>Applicant</th>
+                                        <th>Date Applied</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for applicant in internship_applicants %}
+                                    <tr>
+                                        <td>Internship</td>
+                                        <td>{{ applicant.internship.internship_role }}</td>
+                                        <td>{{ applicant.student.full_name }}</td>
+                                        <td>{{ applicant.date_of_applied }}</td>
+                                        <td>
+                                            <form method="POST" action="{% url 'view_applicants' %}">
+                                                {% csrf_token %}
+                                                <select name="status" class="form-control">
+                                                    <option value="Pending" {% if applicant.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                                    <option value="Accepted" {% if applicant.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                                                    <option value="Rejected" {% if applicant.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                                </select>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="application_type" value="internship">
+                                            <input type="hidden" name="application_id" value="{{ applicant.internship_application_id }}">
+                                            <button type="submit" class="btn btn-save">Save</button>
+                                            
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6">No internship applications available.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

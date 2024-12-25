@@ -1,0 +1,77 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    input::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    .btn-custom {
+        font-size: 12px;
+        width: 150px;
+    }
+    .title {
+      font-size: 60px;
+      font-weight: bold;
+      color: navy;
+      font-family: 'Times New Roman';
+      margin: 50px 0 0 250px;
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+    .form-container {
+        border: 1px solid #ccc; /* Border color */
+        border-radius: 8px; /* Rounded corners */
+        padding: 20px; /* Space inside the box */
+        margin-top: 20px; /* Space above the box */
+        background-color: #fff; /* Background color */
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Update Notice</div>
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 form-container" style="margin-top:10px;">
+          <form method="post" action="{% url 'update_notice' notice.notice_id %}">
+            {% csrf_token %}
+            <div class="text-center">
+              
+
+                <!-- Notice Title input -->
+                <input type="text" class="form-control form-control-lg" placeholder="Enter Notice Title" 
+                       name="announcement_text" value="{{ notice.announcement_text }}" required />
+
+                <!-- Notice Date (read-only) -->
+                <label for="notice_date" style="margin-top:8px;">Notice Date:</label>
+                <input type="date" class="form-control form-control-lg" 
+                       name="notice_date" value="{{ notice.date_created|date:'Y-m-d' }}" readonly />
+
+                <!-- Submit Buttons -->
+                <div class="text-center text-lg-start mt-4 pt-2">
+                    <button type="submit" class="btn btn-primary btn-custom">Update</button>
+                    <a href="javascript:history.back()" class="btn btn-secondary btn-custom">Cancel</a>
+                </div>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

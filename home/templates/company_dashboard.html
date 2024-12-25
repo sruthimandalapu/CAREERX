@@ -1,0 +1,75 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    .btn-custom {
+        font-size: 14px; /* Set desired font size */
+        width: 200px; /* Set button width */
+        margin-bottom: 10px; /* Spacing between buttons */
+        background-color: navy; /* Change button color to navy blue */
+        color: white; /* Change text color to white for contrast */
+        border: none; /* Remove button border */
+    }
+    .welcome-heading {
+        text-align: center;
+        font-family: Times New Roman;
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color:#007bff; /* Optional: Blue color */
+    }
+</style>
+<body>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <h2 class="welcome-heading">Hi, {{ company.company_name }} !</h2>
+                <h2 class = "welcome-heading">Welcome to your Company Dashboard</h2>
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div style="margin-top:10px;" class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <div class="text-center">
+                    
+                <p>   </p>
+               
+                    <!-- Buttons -->
+                    <a href="{% url 'company_profile' %}">
+                        <button class="btn btn-primary btn-custom">MY PROFILE</button>
+                    </a>
+                    <a href="{% url 'view_internships' %}">
+                        <button class="btn btn-primary btn-custom">INTERNSHIPS</button>
+                    </a>
+                    <a href="{% url 'view_jobs' %}">
+                        <button class="btn btn-primary btn-custom">JOBS</button>
+                    </a>
+                    <a href="{% url 'view_notices' %}">
+                        <button class="btn btn-primary btn-custom">NOTICE</button>
+                    </a>
+                    <a href="{% url 'view_applicants' %}">
+                        <button class="btn btn-primary btn-custom">APPLICANTS</button>
+                    </a>
+                    <a href="{% url 'view_events' %}">
+                        <button class="btn btn-primary btn-custom">EVENTS</button>
+                    </a>
+                    <a href="{% url 'logout' %}">
+                        <button class="btn btn-danger btn-custom">LOGOUT</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

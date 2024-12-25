@@ -1,0 +1,96 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    input::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    input.form-control-lg {
+        font-size: 14px;
+    }
+    .form-check-input {
+        margin-left: 10px;
+    }
+    .form-check-label {
+        font-size: 0.75em;
+        color: rgba(100, 100, 100, 0.4);
+    }
+    .form-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+    .btn-new{
+        background : navy;
+        font-size: 12px;
+    }
+
+    .title {
+        font-size: 60px;
+        font-weight: bold;
+        color: #007bff;
+        margin: 50px 0 0 250px; /* Added margin to position the title */
+        position: absolute; /* Position absolutely */
+        top: 0; /* Align to top */
+        left: 0; /* Align to left */
+    }
+    .content-wrapper {
+        margin-top: 10px; /* Add space below the title */
+    }
+    .heading {
+        font-size: 50px;
+        font-family: 'Times New Roman';
+        font-weight: bold;
+        color: navy; /* Blue color */
+        text-align: left;
+        margin-top:0px;
+        margin-left: 130px; /* Position the heading to the left */
+      }
+
+</style>
+<body>
+    
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <div class="col-12">
+                        <h1 class="heading">ADD EVENT</h1>
+                      </div>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form method="post" action="{% url 'add_event' %}">
+                        {% csrf_token %}
+                       
+                        <!-- Event Title -->
+                        <input type="text" class="form-control form-control-lg" placeholder="Enter Event Title" name="title" required />
+                        <!-- Event Description -->
+                        <textarea class="form-control form-control-lg" placeholder="Enter Event Description" name="description" rows="4" required></textarea>
+                        <!-- Date -->
+                        <input type="date" class="form-control form-control-lg" name="date" required />
+                        <!-- Location -->
+                        <input type="text" class="form-control form-control-lg" placeholder="Enter Location" name="location" required />
+                        <!-- Submit Buttons -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-new">Add Event</button>
+                            <button type="button" class="btn btn-secondary btn-new" onclick="window.history.back();">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

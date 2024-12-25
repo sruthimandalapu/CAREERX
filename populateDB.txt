@@ -1,0 +1,343 @@
+#---------------------------------------------------------------------------
+from home.models import Student
+from datetime import date
+dummy_students = [
+    {
+        "student_id": 2,
+        "full_name": "Alice Johnson",
+        "email": "alice@gmail.com",
+        "contact_number": 1234567890,
+        "date_of_birth": date(2000, 1, 1),
+        "gender": "Female",
+        "r_number": "R001",
+        "department": "Computer Science",
+        "cgpa": "3.8",
+        "password": "pass"
+    },
+    {
+        "student_id": 32,
+        "full_name": "John Dox",
+        "email": "johndox@example.com",
+        "contact_number": 9876543210,
+        "date_of_birth": date(2001, 5, 10),
+        "gender": "Male",
+        "r_number": "R001",
+        "department": "Computer Science",
+        "cgpa": 3.85,
+        "password": "password1"
+    },
+    {
+        "student_id": 33,
+        "full_name": "Jane Snow",
+        "email": "janesnow@example.com",
+        "contact_number": 9123456789,
+        "date_of_birth": date(2000, 8, 15),
+        "gender": "Female",
+        "r_number": "R002",
+        "department": "Mechanical Engineering",
+        "cgpa": 3.92,
+        "password": "password2"
+    },
+    # remaining students are filled with the information, where i ranges from 3 to 31:
+    # "email": f"student{i}@example.com",
+    # "password": f"password{i:03d}"
+    # default student for Notices:
+    {
+        "student_id": 1,
+        "full_name": "Michael Scott",
+        "email": "newstudent@example.com",
+        "contact_number": 1234567890,
+        "date_of_birth": date(1999, 12, 31),
+        "gender": "Other",
+        "r_number": "R999",
+        "department": "Physics",
+        "cgpa": 3.5,
+        "password": "securepassword"
+    },
+]
+for student_data in dummy_students:
+    student = Student(**student_data)
+    student.save()
+#--------------------------------------------------------------------------------------------
+from home.models import Admin
+from datetime import date
+dummy_admins = [
+    {
+        "full_name": "John Doe",
+        "email": "john.doe@gmail.com",
+        "contact_number": "1234567890",
+        "age": "35",
+        "gender": "Male",
+        "password": "password1"
+    },
+    {
+        "full_name": "Jane Smith",
+        "email": "jane.smith@gmail.com",
+        "contact_number": "9876543210",
+        "age": "30",
+        "gender": "Female",
+        "password": "password2"
+    },
+]
+for admin_data in dummy_admins:
+    admin = Admin(**admin_data)
+    admin.save()
+#------------------------------------------------------------------------------------------------
+from home.models import Company
+dummy_companies = [
+    {
+        "company_id": 1,
+        "company_name": "CareerX Inc.",
+        "email": "contact@careerx.com",
+        "contact_number": 9876543210,
+        "street_number": "1234 Elm Street",
+        "city": "San Francisco",
+        "state": "California",
+        "country": "USA",
+        "pincode": "94107",
+        "password": "pass1"
+    },
+    {
+        "company_id": 2,
+        "company_name": "Green Energy Corp.",
+        "email": "info@greenenergy.com",
+        "contact_number": 9876543210,
+        "street_number": "5678 Oak St",
+        "city": "San Francisco",
+        "state": "CA",
+        "country": "USA",
+        "pincode": 94102,
+        "password": "password2"
+    },
+    {
+        "company_id": 3,
+        "company_name": "Health Plus Ltd.",
+        "email": "support@healthplus.com",
+        "contact_number": 1231231234,
+        "street_number": "4321 Maple St",
+        "city": "Chicago",
+        "state": "IL",
+        "country": "USA",
+        "pincode": 60601,
+        "password": "password3"
+    },
+    {
+        "company_id": 4,
+        "company_name": "EduSmart Co.",
+        "email": "contact@edusmart.com",
+        "contact_number": 4564564567,
+        "street_number": "8765 Cedar St",
+        "city": "Seattle",
+        "state": "WA",
+        "country": "USA",
+        "pincode": 98101,
+        "password": "password4"
+    },
+    {
+        "company_id": 5,
+        "company_name": "Global Tech Ltd.",
+        "email": "info@globaltech.com",
+        "contact_number": 7897897890,
+        "street_number": "2345 Pine St",
+        "city": "Austin",
+        "state": "TX",
+        "country": "USA",
+        "pincode": 73301,
+        "password": "password5"
+    },
+    # remaining companies are filled with the information, where i ranges from 6 to 13:
+    # "email": f"contact{i}@example.com",
+    # "password": f"password{i:03d}"
+]
+for company_data in dummy_companies:
+    company = Company(**company_data)
+    company.save()
+----------------------------------------------
+from home.models import Event 
+from datetime import date
+dummy_events = [
+    {
+        "event_id": 1,
+        "title": "Tech Conference 2024",
+        "description": "Annual tech conference featuring industry leaders.",
+        "date": date(2024, 3, 15),
+        "location": "San Francisco"
+    },
+    {
+        "event_id": 2,
+        "title": "AI Workshop",
+        "description": "Hands-on workshop for AI and machine learning enthusiasts.",
+        "date": date(2024, 4, 20),
+        "location": "New York City"
+    },
+    {
+        "event_id": 3,
+        "title": "Data Science Bootcamp",
+        "description": "Intensive bootcamp covering data science and analytics.",
+        "date": date(2024, 5, 25),
+        "location": "Chicago"
+    },
+    {
+        "event_id": 4,
+        "title": "Startup Pitch Night",
+        "description": "Networking event for startups to pitch their ideas.",
+        "date": date(2024, 6, 10),
+        "location": "Austin"
+    },
+    {
+        "event_id": 5,
+        "title": "Blockchain Summit",
+        "description": "Summit discussing the latest trends in blockchain technology.",
+        "date": date(2024, 7, 5),
+        "location": "Los Angeles"
+    },
+]
+for event_data in dummy_events:
+    event = Event(**event_data)
+    event.save()
+-------------------------------------------------
+from home.models import Notice, Admin, Student
+from datetime import date
+
+dummy_notices = [
+    {
+        "announcement_text": "Midterm exams will start next week. Please be prepared.",
+        "created_by_id": 1,  # John Doe's admin_id
+        "recipient_id": 2,
+        "date_created": date(2024, 11, 1)
+    },
+]
+
+for notice_data in dummy_notices:
+    created_by = Admin.objects.get(pk=notice_data["created_by_id"])
+    recipient = Student.objects.get(pk=notice_data["recipient_id"])
+    
+    notice = Notice(
+        announcement_text=notice_data["announcement_text"],
+        created_by=created_by,
+        recipient=recipient,  # Use the correct field name
+        date_created=notice_data["date_created"],
+    )
+    notice.save()
+
+
+# --------------------------------------------------------------------------------------------
+from home.models import Job, Company, Admin
+from datetime import date
+
+dummy_jobs = [
+    {
+        "job_role": "Software Developer",
+        "description": "Develop and maintain software applications.",
+        "company_id": 1,
+        "created_by_id": 1,
+        "posted_date": date(2024, 11, 1),
+        "job_type": "full_time",
+        "location": "remote",
+        "salary": 70000,
+        "start_date": date(2024, 12, 1),
+        "last_date_to_apply": date(2024, 11, 20),
+    },
+    {
+        "job_role": "Data Analyst",
+        "description": "Analyze data and generate insights for business.",
+        "company_id": 3,
+        "created_by_id": 1,
+        "posted_date": date(2024, 11, 2),
+        "job_type": "part_time",
+        "location": "New York, NY",
+        "salary": 40000,
+        "start_date": date(2025, 1, 15),
+        "last_date_to_apply": date(2024, 12, 15),
+    },
+    {
+        "job_role": "UIUX Designer",
+        "description": "Design user interfaces and improve user experience.",
+        "company_id": 1,
+        "created_by_id": 1,
+        "posted_date": date(2024, 11, 3),
+        "job_type": "full_time",
+        "location": "remote",
+        "salary": 60000,
+        "start_date": date(2025, 1, 1),
+        "last_date_to_apply": date(2024, 12, 5),
+    },
+]
+
+for job_data in dummy_jobs:
+    company = Company.objects.get(company_id=job_data["company_id"])
+    created_by = Admin.objects.get(pk=job_data["created_by_id"])
+    job = Job(
+        job_id=f"J-{job_data['company_id']}-{job_data['job_role'].replace(' ', '_')[:5]}",
+        job_role=job_data["job_role"],
+        description=job_data["description"],
+        company=company,
+        created_by=created_by,
+        job_type=job_data["job_type"],
+        location=job_data["location"],
+        salary=job_data["salary"],
+        start_date=job_data["start_date"],
+        last_date_to_apply=job_data["last_date_to_apply"],
+    )
+    job.save()
+# ---------------------------------------------------------------------------------
+from home.models import Internship, Company, Admin
+from datetime import date
+dummy_internships = [
+    {
+        "internship_id": "I-001",
+        "internship_role": "Software Developer Intern",
+        "description": "Assist in software development projects.",
+        "internship_type": "full_time",
+        "location": "remote",
+        "stipend": 1500,
+        "start_date": date(2024, 12, 1),
+        "duration_months": 6,
+        "last_date_to_apply": date(2024, 11, 20),
+        "company_id": 1,
+        "created_by_id": 1,
+    },
+    {
+        "internship_id": "I-002",
+        "internship_role": "Data Science Intern",
+        "description": "Support data analysis tasks and create predictive models.",
+        "internship_type": "part_time",
+        "location": "Chicago, IL",
+        "stipend": 2000,
+        "start_date": date(2025, 1, 10),
+        "duration_months": 3,
+        "last_date_to_apply": date(2024, 12, 25),
+        "company_id": 3,
+        "created_by_id": 1,
+    },
+    {
+        "internship_id": "I-003",
+        "internship_role": "Marketing Intern",
+        "description": "Assist in marketing campaigns and manage social media.",
+        "internship_type": "remote",
+        "location": "remote",
+        "stipend": 1000,
+        "start_date": date(2025, 2, 1),
+        "duration_months": 4,
+        "last_date_to_apply": date(2024, 12, 30),
+        "company_id": 1,
+        "created_by_id": 1,
+    },
+]
+for internship_data in dummy_internships:
+    company = Company.objects.get(company_id=internship_data["company_id"])
+    created_by = Admin.objects.get(pk=internship_data["created_by_id"])
+    internship = Internship(
+        internship_id=internship_data["internship_id"],
+        internship_role=internship_data["internship_role"],
+        description=internship_data["description"],
+        internship_type=internship_data["internship_type"],
+        location=internship_data["location"],
+        stipend=internship_data["stipend"],
+        start_date=internship_data["start_date"],
+        duration_months=internship_data["duration_months"],
+        last_date_to_apply=internship_data["last_date_to_apply"],
+        company=company,
+        created_by=created_by,
+    )
+    internship.save()

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Available Jobs</h1>
+    <div class="list-group mt-3">
+        {% for job in jobs %}
+            <a href="#" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ job.name }}</h5>
+                <p class="mb-1">{{ job.address }}</p>
+                <small>Posted by: {{ job.createdBy }}</small>
+            </a>
+        {% empty %}
+            <p>No jobs available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <h1 class="mt-5">Available Internships</h1>
+    <div class="list-group mt-3">
+        {% for internship in internships %}
+            <a href="#" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ internship.name }}</h5>
+                <p class="mb-1">{{ internship.address }}</p>
+                <small>Posted by: {{ internship.createdBy }}</small>
+            </a>
+        {% empty %}
+            <p>No internships available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

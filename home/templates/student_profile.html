@@ -1,0 +1,70 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    input.form-control-lg {
+        font-size: 14px;
+    }
+</style>
+<body>
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+             class="img-fluid" alt="Sample image">
+      </div>
+
+      <div style="margin-top:10px;" class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <h2 class="text-center mb-4">Student Profile</h2>
+
+        <!-- Profile Details Display -->
+        <form>
+          <!-- Full Name -->
+          <input type="text" class="form-control form-control-lg" value="{{ student.full_name }}" readonly />
+
+          <!-- Email -->
+          <input type="email" style="margin-top:10px" class="form-control form-control-lg" value="{{ student.email }}" readonly />
+
+          <!-- Contact Number -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.contact_number }}" readonly />
+
+          <!-- Date of Birth -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.date_of_birth }}" readonly />
+
+          <!-- Gender -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.gender }}" readonly />
+
+          <!-- R-Number -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.r_number }}" readonly />
+
+          <!-- Department -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.department }}" readonly />
+
+          <!-- CGPA -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" value="{{ student.cgpa }}" readonly />
+
+          <!-- Back Button -->
+          <div class="text-center mt-4 pt-2">
+            <a href="{% url 'student_dashboard' %}">
+              <button type="button" class="btn btn-primary btn-lg" style="font-size: 12px; width:150px;">
+                Go Back!
+              </button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        h1 {
+            font-family: "Times New Roman", serif;
+            color: navy;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Student Details</h1>
+        <table class="table table-bordered">
+            <tr>
+                <th>Full Name</th>
+                <td>{{ student.full_name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <th>Contact Number</th>
+                <td>{{ student.contact_number }}</td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>{{ student.date_of_birth }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ student.gender }}</td>
+            </tr>
+            <tr>
+                <th>Roll Number</th>
+                <td>{{ student.r_number }}</td>
+            </tr>
+            <tr>
+                <th>Department</th>
+                <td>{{ student.department }}</td>
+            </tr>
+            <tr>
+                <th>CGPA</th>
+                <td>{{ student.cgpa }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'view_students' %}" class="btn btn-primary">Back to Students</a>
+    </div>
+</body>
+</html>

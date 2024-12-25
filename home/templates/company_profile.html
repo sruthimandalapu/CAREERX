@@ -1,0 +1,102 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+
+        box-sizing: border-box;
+    }
+    input.form-control-lg {
+        font-size: 14px;
+    }
+    .heading {
+      font-size: 50px;
+      font-family: Times New Roman;
+      font-weight: bold;
+      color: navy; /* Blue color */
+      text-align: left;
+      margin-top:px;
+      margin-left: 100px; /* Position the heading to the left */
+    }
+</style>
+<body>
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <div class="col-12">
+          <h1 class="heading">MY PROFILE</h1>
+          </div>
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+             class="img-fluid" alt="Sample image">
+      </div>
+
+      <div style="margin-top:10px;" class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        
+        <!-- Profile dtails display -->
+        <form id="profileForm" method="POST">
+          {% csrf_token %}
+
+          <!-- Company Name -->
+          <input type="text" class="form-control form-control-lg" id="companyName" name="company_name" value="{{ company.company_name }}" readonly />
+
+          <!-- Email -->
+          <input type="email" style="margin-top:10px" class="form-control form-control-lg" id="email" name="email" value="{{ company.email }}" readonly />
+
+          <!-- Contact Number -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="contactNumber" name="contact_number" value="{{ company.contact_number }}" readonly />
+
+          <!-- Street Number -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="streetNumber" name="street_number" value="{{ company.street_number }}" readonly />
+
+          <!-- City -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="city" name="city" value="{{ company.city }}" readonly />
+
+          <!-- State -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="state" name="state" value="{{ company.state }}" readonly />
+
+          <!-- Country -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="country" name="country" value="{{ company.country }}" readonly />
+
+          <!-- Pincode -->
+          <input type="text" style="margin-top:8px" class="form-control form-control-lg" id="pincode" name="pincode" value="{{ company.pincode }}" readonly />
+
+          <!-- Buttons -->
+          <div class="text-center mt-4 pt-2">
+            <!-- Update Button -->
+            <button type="button" id="updateButton" class="btn btn-warning btn-lg" style="font-size: 12px; width:150px;" onclick="enableEditMode()">Update</button>
+
+            <!-- Save Button (Initially Hidden) -->
+            <button type="submit" id="saveButton" class="btn btn-success btn-lg" style="font-size: 12px; width:150px; display: none;">Save</button>
+
+            <!-- Go Back Button -->
+            <a href="{% url 'company_dashboard' %}">
+              <button type="button" class="btn btn-primary btn-lg" style="font-size: 12px; width:150px;">
+                Go Back!
+              </button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function enableEditMode() {
+    //enable all input fields
+    const inputs = document.querySelectorAll('#profileForm input');
+    inputs.forEach(input => input.removeAttribute('readonly'));
+
+    //hide the Update button and show the Save button
+    document.getElementById('updateButton').style.display = 'none';
+    document.getElementById('saveButton').style.display = 'inline-block';
+  }
+</script>
+
+</body>
+</html>

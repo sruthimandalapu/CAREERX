@@ -1,0 +1,118 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    input[type="email"]::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    input[type="password"]::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    input.form-control-lg {
+        font-size: 14px; /* Decrease input text size */
+    }
+    button{
+        width:00px;
+        
+    }
+    .btn-new{
+      background: navy;
+    }
+
+    .login-btn {
+        font-size: 12px; /* Set desired font size */
+  
+    }
+    .form-check-input {
+        transform: scale(0.6); /* Adjust the scale factor as needed */
+        margin-left: 10px; /* Optional: adjust space between radio and label */
+        border-color: red;
+        accent-color: black;
+    }
+    .form-check-label {
+        font-size: 0.75em; /* Adjust the label font size */
+        color: black;
+        
+    }
+    .form-check-input:checked + .form-check-label::before {
+        background-color: blue; /* Background color when checked */
+        border-color: blue; /* Change border color when checked */
+    }
+
+    .heading {
+      font-size: 50px;
+      font-family: 'Times New Roman';
+      font-weight: bold;
+      color: navy; /* Blue color */
+      text-align: left;
+      margin-top:px;
+      margin-left: 400px; /* Position the heading to the left */
+    }
+
+</style>
+<body>
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <div class="col-12">
+              <h1 class="heading">LOGIN</h1>
+            </div>
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              class="img-fluid" alt="Sample image">
+          </div>
+          <div style="margin-top:30px;" class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+              <!-- Email input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                <input type="email" id="form3Example3" class="form-control form-control-lg"
+                  placeholder="Enter a valid email address" name="email" required/>
+              </div>
+
+              <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-3">
+                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                  placeholder="Enter password" name="password" required/>
+              </div>
+
+            <!-- Radio Button -->
+              <div style="margin-left:80px;" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radio_options" id="inlineRadio1" value="student" required>
+                <label class="form-check-label" for="inlineRadio1">Student</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radio_options" id="inlineRadio2" value="company">
+                <label class="form-check-label" for="inlineRadio2">Company</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radio_options" id="inlineRadio3" value="admin">
+                <label class="form-check-label" for="inlineRadio3">Admin</label>
+              </div>
+              <!-- submit Buttons -->
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;margin-bottom: 10px;background: navy;font-size: 12px;width:150px;margin-right:8px;">Login</button>
+                  <a href="{% url 'index' %}"><button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;background: navy;font-size: 12px;width:150px;margin-bottom: 10px;">Cancel</button></a>
+                  <a href="{% url 'password_reset' %}"><button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;background: navy;font-size: 12px;width:250px;">Can't Access Account?</button></a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</body>
+</html>

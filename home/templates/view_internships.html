@@ -1,0 +1,301 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f4f8ff;
+        }
+        .btn-custom {
+            font-size: 12px;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: navy;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .table-container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            table-layout: auto;
+            word-wrap: break-word;
+
+        }
+        thead {
+            background-color: navy;
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .header {
+            padding-top:10px;
+            text-align: center;
+            font-size: 60px;
+            color:navy;
+            font-family:'Times New Roman';
+        }
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .search-bar {
+            width: 200px;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .sort-btn {
+            background: none;
+            border: none;
+            color: black;
+            cursor: pointer;
+        }
+        .sort-btn:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-lg-10 col-xl-10">
+                <!-- Header -->
+                <div class="header">
+                    <h><b>INTERNSHIPS</b></h>
+                    
+                </div>
+
+                <!-- Search and Actions -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="search-container">
+                        <input type="text" id="roleSearchBar" class="form-control search-bar" placeholder="Search by Role" onkeyup="filterByRole()">
+                    </div>
+                    
+                    <div class="button-container">
+                        {% if can_manage_internships %}
+                        <a href="{% url 'add_internship' %}">
+                            <button class="btn btn-primary btn-custom">Add New Internship</button>
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'dashboard' %}">
+                            <button class="btn btn-secondary btn-custom">Back to Dashboard</button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Internships Table -->
+                <div class="table-container">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Internship ID</th>
+                                <th>Role</th>
+                                <th>Description</th>
+                                <th>Duration (Months)</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Stipend</th>
+                                <th>Start Date</th>
+                                <th>Apply By</th>
+                                <th>Company</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="internship-table-body">
+                            {% for internship in internships %}
+                            <tr>
+                                <td>{{ internship.internship_id }}</td>
+                                <td>{{ internship.internship_role }}</td>
+                                <td>{{ internship.description }}</td>
+                                <td>{{ internship.duration_months }}</td>
+                                <td>{{ internship.get_internship_type_display }}</td>
+                                <td>{{ internship.get_location_display }}</td>
+                                <td>{{ internship.stipend }}</td>
+                                <td>{{ internship.start_date }}</td>
+                                <td>{{ internship.last_date_to_apply }}</td>
+                                <td>
+                                    {% if internship.company %}
+                                        {{ internship.company.company_name }}
+                                    {% else %}
+                                        Unknown
+                                    {% endif %}
+                                </td>
+                                <td class="actions-container">
+                                    {% comment %} {% if user_type == 'admin' or internship.is_owner %} {% endcomment %}
+                                    {% if internship.is_owner %}
+                                        <a href="{% url 'update_internship' internship.internship_id %}" class="btn btn-warning btn-custom">Edit</a>
+                                        <button 
+                                            class="btn btn-danger btn-custom" 
+                                            onclick="showDeleteModal('{% url 'delete_internship' internship.internship_id %}')">
+                                            Delete
+                                        </button>
+                                    {% elif is_student %}
+                                        {% if internship.student_applied %}
+                                            {% for application in internship.internship_applications.all %}
+                                                {% if application.student.email == user_email %}
+                                                    <button class="btn btn-secondary btn-custom" disabled>{{ application.status }}</button>
+                                                {% endif %}
+                                            {% empty %}
+                                                <button class="btn btn-secondary btn-custom" disabled>No Applications</button>
+                                            {% endfor %}
+                                        {% elif internship.is_expired %}
+                                            <button class="btn btn-secondary btn-custom" disabled>Expired</button>
+                                        {% else %}
+                                            <button 
+                                                class="btn btn-success btn-custom" 
+                                                onclick="showApplyModal('{{ internship.internship_id }}')">Apply</button>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="10">No internships available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Apply Confirmation Modal -->
+<div class="modal fade" id="applyConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyModalLabel">Confirm Application</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to apply for this internship? Your information will be submitted to the company.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="applyButton" type="button" class="btn btn-success">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this internship?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<script>
+    let selectedInternshipId = null;
+
+    function showApplyModal(internshipId) {
+        selectedInternshipId = internshipId; // Save the internship ID for later use
+        $('#applyConfirmationModal').modal('show'); // Show the modal
+    }
+
+    document.getElementById('applyButton').addEventListener('click', function () {
+        if (selectedInternshipId) {
+            fetch(`/apply-internship/${selectedInternshipId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // CSRF token for security
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Show success or error message
+                location.reload(); // Reload the page to update the button status
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            });
+        }
+    });
+
+    function showDeleteModal(deleteUrl) {
+        const deleteForm = document.getElementById('deleteForm');
+        deleteForm.action = deleteUrl;
+        $('#deleteConfirmationModal').modal('show');
+    }
+
+    function applyToInternship(internshipId) {
+        fetch(`/apply-internship/${internshipId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
+    }
+
+    function filterByRole() {
+        const searchQuery = document.getElementById('roleSearchBar').value.toLowerCase();
+        const tableBody = document.getElementById('internship-table-body');
+        const rows = tableBody.querySelectorAll('tr');
+    
+        rows.forEach(row => {
+            const roleCell = row.cells[1]; // The "Role" field is the second column
+            if (roleCell) {
+                const roleText = roleCell.innerText.toLowerCase();
+                row.style.display = roleText.includes(searchQuery) ? '' : 'none';
+            }
+        });
+    }
+    
+
+</script>

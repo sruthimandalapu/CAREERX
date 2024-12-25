@@ -1,0 +1,121 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+    }
+    input::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    input.form-control-lg, textarea.form-control-lg {
+        font-size: 14px;
+    }
+    .form-check-label {
+        font-size: 0.75em;
+        color: rgba(100, 100, 100, 0.4);
+    }
+    .form-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #fff;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    /* removing arrows from number inputs */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield; /* fixing styling for Firefox */
+    }
+</style>
+<body>
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+
+            <div style="margin-top:10px;" class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 form-container">
+                <form method="post" action="{% url 'update_job' job.job_id %}">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <h2>Update Job</h2>
+                        <p>Update the details below</p>
+
+                        <!-- Job Role input -->
+                        <input style="margin-top:10px" type="text" class="form-control form-control-lg" placeholder="Enter Job Role" name="job_role" value="{{ job.job_role }}" required />
+
+                        <!-- Job Description input -->
+                        <textarea style="margin-top:8px" class="form-control form-control-lg" placeholder="Enter Description" name="description" required>{{ job.description }}</textarea>
+
+                        <!-- Job Type selection -->
+                        <div style="margin-top:8px">
+                            <label>Job Type:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="job_type" id="full_time" value="full_time" {% if job.job_type == 'full_time' %}checked{% endif %} required />
+                                <label class="form-check-label" for="full_time">Full Time</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="job_type" id="part_time" value="part_time" {% if job.job_type == 'part_time' %}checked{% endif %} required />
+                                <label class="form-check-label" for="part_time">Part Time</label>
+                            </div>
+                        </div>
+
+                        <!-- Job Location selection -->
+                        <div style="margin-top:8px">
+                            <label>Location:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="remote" value="remote" {% if job.location == 'remote' %}checked{% endif %} required />
+                                <label class="form-check-label" for="remote">Remote</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="in_office" value="in_office" {% if job.location == 'in_office' %}checked{% endif %} required />
+                                <label class="form-check-label" for="in_office">In Office</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="hybrid" value="hybrid" {% if job.location == 'hybrid' %}checked{% endif %} required />
+                                <label class="form-check-label" for="hybrid">Hybrid</label>
+                            </div>
+                        </div>
+
+                        <!-- Salary input -->
+                        <label for="salary" style="margin-top:8px;">Salary:</label>
+                        <input style="margin-top:8px" type="number" class="form-control form-control-lg" placeholder="Enter Salary" name="salary" value="{{ job.salary }}" required />
+
+                        <!-- Start Date input -->
+                        <label for="start_date" style="margin-top:8px;">Start Date:</label>
+                        <input type="date" class="form-control form-control-lg" name="start_date" 
+                            value="{{ job.start_date|date:'Y-m-d' }}" required />
+
+                        <!-- Last Date to Apply input -->
+                        <label for="last_date_to_apply" style="margin-top:8px;">Last Date to Apply:</label>
+                        <input type="date" class="form-control form-control-lg" name="last_date_to_apply" 
+                            value="{{ job.last_date_to_apply|date:'Y-m-d' }}" required />
+
+                        <!-- Submit Buttons -->
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg" style="width: 150px;">Update</button>
+                            <button type="button" class="btn btn-secondary btn-lg" style="width: 150px;" onclick="window.history.back();">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

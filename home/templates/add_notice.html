@@ -1,0 +1,85 @@
+{% load static %}
+{% comment %} Note that notices are made to be targetted to students {% endcomment %}
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;1000&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        
+        box-sizing: border-box;
+    }
+    input::placeholder {
+        font-size: 12px;
+        color: rgba(100, 100, 100, 0.3);
+    }
+    .btn-custom {
+        font-size: 12px;
+        width: 150px;
+    }
+    .form-container {
+        border: 1px solid #ccc; /* Border color */
+        border-radius: 8px; /* Rounded corners */
+        padding: 20px; /* Space inside the box */
+        margin-top: 20px; /* Space above the box */
+        background-color: #fff; /* Background color */
+    }
+    .btn-new{
+      background : navy;
+      font-size: 12px;
+  }
+  .heading {
+    font-size: 50px;
+    font-family: 'Times New Roman';
+    font-weight: bold;
+    color: navy; /* Blue color */
+    text-align: left;
+    margin-top:0px;
+    margin-left: 130px; /* Position the heading to the left */
+    }
+  </style>
+</head>
+<body>
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <div class="col-12">
+            <h1 class="heading">ADD NOTICE</h1>
+          </div>
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 form-container" style="margin-top:10px;">
+          <form method="post" action="{% url 'add_notice' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <textarea name="announcement_text" class="form-control" placeholder="Enter announcement text" required></textarea>
+            </div>
+
+            <!-- Student Selection -->
+            {% comment %} <div class="form-group">
+              <label for="recipient_id">Select Student:</label>
+              <select name="recipient_id" class="form-control" required>
+                  <option value="">Select Student</option>
+                  {% for student in students %}
+                  <option value="{{ student.student_id }}">{{ student.full_name }}</option>
+                  {% endfor %}
+              </select>
+            </div> {% endcomment %}
+
+            <!-- Submit Buttons -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary btn-new">Add Notice</button>
+              <button type="button" class="btn btn-secondary btn-new" onclick="window.history.back();">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
