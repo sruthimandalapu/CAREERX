@@ -1,0 +1,582 @@
+Go to python shell - Use command (python manage.py shell) - copy paste each block of code - data gets inserted
+#Student---------------------------------------------------------------------
+from home.models import Student
+from datetime import date
+
+dummy_students = [
+    {
+        "student_id": 1,
+        "full_name": "John Doe",
+        "email": "john.doe@example.com",
+        "contact_number": 9876543210,
+        "date_of_birth": date(2001, 5, 10),
+        "gender": "Male",
+        "r_number": "R001",
+        "department": "Computer Science",
+        "cgpa": 3.85,
+        "password": "password123"
+    },
+    {
+        "student_id": 2,
+        "full_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "contact_number": 9123456789,
+        "date_of_birth": date(2000, 8, 15),
+        "gender": "Female",
+        "r_number": "R002",
+        "department": "Mechanical Engineering",
+        "cgpa": 3.92,
+        "password": "securepass456"
+    },
+    # Add 28 more student dictionaries following this format
+]
+
+# Generate remaining student data dynamically for illustration
+for i in range(3, 31):
+    dummy_students.append({
+        "student_id": i,
+        "full_name": f"Student {i}",
+        "email": f"student{i}@example.com",
+        "contact_number": 9000000000 + i,
+        "date_of_birth": date(2000 + (i % 5), (i % 12) + 1, (i % 28) + 1),
+        "gender": "Male" if i % 2 == 0 else "Female",
+        "r_number": f"R{i:03d}",
+        "department": "Electrical Engineering" if i % 3 == 0 else "Information Technology",
+        "cgpa": round(3.0 + (i % 10) * 0.05, 2),
+        "password": f"password{i:03d}"
+    })
+
+# Insert data into the database
+for student_data in dummy_students:
+    student = Student(**student_data)
+    student.save()
+
+#Company--------------------------------------------------------------------------------------------------------------------
+from home.models import Company
+
+# List of dummy company data
+dummy_companies = [
+    {
+        "company_id": 1,
+        "company_name": "Tech Solutions Inc.",
+        "email": "contact@techsolutions.com",
+        "contact_number": 9876543210,
+        "street_number": "1234 Elm Street",
+        "city": "San Francisco",
+        "state": "California",
+        "country": "USA",
+        "pincode": "94107",
+        "password": "securepass1"
+    },
+    {
+        "company_id": 2,
+        "company_name": "Innovative AI Labs",
+        "email": "info@innovativeai.com",
+        "contact_number": 9123456789,
+        "street_number": "567 Oak Avenue",
+        "city": "New York City",
+        "state": "New York",
+        "country": "USA",
+        "pincode": "10001",
+        "password": "securepass2"
+    },
+    # Add 8 more manually or dynamically
+]
+
+# Generate additional dummy data for variety
+for i in range(3, 11):
+    dummy_companies.append({
+        "company_id": i,
+        "company_name": f"Company {i}",
+        "email": f"contact{i}@example.com",
+        "contact_number": 9000000000 + i,
+        "street_number": f"{i*10} Maple Road",
+        "city": "CityName",
+        "state": f"State{i}",
+        "country": "CountryName",
+        "pincode": f"{10000 + i}",
+        "password": f"password{i:03d}"
+    })
+
+# Insert data into the database
+for company_data in dummy_companies:
+    company = Company(**company_data)
+    company.save()
+#Admin -------------------------------------------------------------------------
+
+from home.models import Admin
+
+# List of dummy admin data
+dummy_admins = [
+    {
+        "full_name": "Alice Johnson",
+        "email": "alice.johnson@example.com",
+        "contact_number": 9876543210,
+        "age": 32,
+        "gender": "Female",
+        "password": "securepass123"
+    },
+    {
+        "full_name": "Bob Smith",
+        "email": "bob.smith@example.com",
+        "contact_number": 9123456789,
+        "age": 45,
+        "gender": "Male",
+        "password": "mypassword456"
+    },
+    {
+        "full_name": "Clara Wilson",
+        "email": "clara.wilson@example.com",
+        "contact_number": 8765432109,
+        "age": 28,
+        "gender": "Female",
+        "password": "topsecret789"
+    },
+    {
+        "full_name": "David Brown",
+        "email": "david.brown@example.com",
+        "contact_number": 7654321098,
+        "age": 39,
+        "gender": "Male",
+        "password": "adminpass123"
+    },
+    {
+        "full_name": "Ella Davis",
+        "email": "ella.davis@example.com",
+        "contact_number": 6543210987,
+        "age": 27,
+        "gender": "Female",
+        "password": "strongpass456"
+    },
+    {
+        "full_name": "Frank Thomas",
+        "email": "frank.thomas@example.com",
+        "contact_number": 5432109876,
+        "age": 50,
+        "gender": "Male",
+        "password": "password789"
+    },
+    {
+        "full_name": "Grace Lee",
+        "email": "grace.lee@example.com",
+        "contact_number": 4321098765,
+        "age": 30,
+        "gender": "Female",
+        "password": "secureadmin123"
+    }
+]
+
+# Insert data into the database
+for admin_data in dummy_admins:
+    admin = Admin(**admin_data)
+    admin.save()
+
+#Internship-------------------------------------------------
+from home.models import Internship, Company, Admin
+from datetime import date
+
+# Assuming 'Company' and 'Admin' tables already have some data
+company_1 = Company.objects.get(company_id=1)
+company_2 = Company.objects.get(company_id=2)
+admin_1 = Admin.objects.get(id=1)
+admin_2 = Admin.objects.get(id=2)
+
+dummy_internships = [
+    {
+        "internship_id": "1",
+        "internship_role": "Backend Developer Intern",
+        "description": "Work on backend APIs and server management.",
+        "internship_type": "full_time",
+        "location": "remote",
+        "stipend": 30000,
+        "start_date": date(2024, 2, 1),
+        "duration_months": 6,
+        "last_date_to_apply": date(2024, 1, 15),
+        "company": 1,
+        "created_by": 1,
+    },
+    {
+        "internship_id": "2",
+        "internship_role": "Data Science Intern",
+        "description": "Assist in data modeling and visualization tasks.",
+        "internship_type": "part_time",
+        "location": "hybrid",
+        "stipend": 20000,
+        "start_date": date(2024, 3, 1),
+        "duration_months": 4,
+        "last_date_to_apply": date(2024, 2, 20),
+        "company": 2,
+        "created_by": 2,
+    },
+    {
+        "internship_id": "3",
+        "internship_role": "Web Developer Intern",
+        "description": "Build and maintain responsive web applications.",
+        "internship_type": "full_time",
+        "location": "in_office",
+        "stipend": 25000,
+        "start_date": date(2024, 4, 1),
+        "duration_months": 5,
+        "last_date_to_apply": date(2024, 3, 25),
+        "company": 1,
+        "created_by": 1,
+    },
+    {
+        "internship_id": "4",
+        "internship_role": "Mobile App Developer Intern",
+        "description": "Develop mobile applications for iOS and Android.",
+        "internship_type": "remote",
+        "location": "remote",
+        "stipend": 28000,
+        "start_date": date(2024, 5, 1),
+        "duration_months": 6,
+        "last_date_to_apply": date(2024, 4, 20),
+        "company": 2,
+        "created_by": 2,
+    },
+    {
+        "internship_id": "5",
+        "internship_role": "Cybersecurity Intern",
+        "description": "Assist in identifying and mitigating security risks.",
+        "internship_type": "full_time",
+        "location": "hybrid",
+        "stipend": 35000,
+        "start_date": date(2024, 6, 1),
+        "duration_months": 3,
+        "last_date_to_apply": date(2024, 5, 15),
+        "company": 1,
+        "created_by":1,
+    },
+    {
+        "internship_id": "6",
+        "internship_role": "Graphic Designer Intern",
+        "description": "Create visual content for marketing campaigns.",
+        "internship_type": "part_time",
+        "location": "in_office",
+        "stipend": 15000,
+        "start_date": date(2024, 7, 1),
+        "duration_months": 2,
+        "last_date_to_apply": date(2024, 6, 20),
+        "company": 2,
+        "created_by": 2,
+    },
+    {
+        "internship_id": "7",
+        "internship_role": "AI Research Intern",
+        "description": "Conduct research and experiments in AI and ML.",
+        "internship_type": "remote",
+        "location": "remote",
+        "stipend": 40000,
+        "start_date": date(2024, 8, 1),
+        "duration_months": 5,
+        "last_date_to_apply": date(2024, 7, 15),
+        "company": 1,
+        "created_by":1,
+    },
+]
+
+# Insert data into the database
+for internship_data in dummy_internships:
+    internship = Internship(**internship_data)
+    internship.save()
+#Internship Applications-------------------------------------------------------------------------------
+from home.models import InternshipApplications, Internship, Student
+from datetime import datetime
+
+# Dummy data for internship applications
+dummy_applications = [
+    {
+        "internship": 1,
+        "student": 1,
+        "status": "Pending",
+    },
+    {
+        "internship": 1,
+        "student": 2,
+        "status": "Accepted",
+    },
+    {
+        "internship": 2,
+        "student": 3,
+        "status": "Rejected",
+    },
+    {
+        "internship": 2,
+        "student": 1,
+        "status": "Pending",
+    },
+    {
+        "internship": 3,
+        "student": 2,
+        "status": "Accepted",
+    },
+    {
+        "internship": 3,
+        "student": 3,
+        "status": "Pending",
+    },
+    {
+        "internship": 1,
+        "student": 3,
+        "status": "Rejected",
+    },
+]
+
+# Insert data into the database
+for application_data in dummy_applications:
+    application = InternshipApplications(**application_data)
+    application.save()
+#Jobs-------------------------------------------------------------------
+
+from home.models import Job
+from datetime import date
+
+dummy_jobs = [
+    {
+        "job_id": "JOB-1",
+        "job_role": "Software Engineer",
+        "description": "Develop and maintain software applications.",
+        "job_type": "full_time",
+        "location": "remote",
+        "salary": 80000,
+        "start_date": date(2024, 1, 15),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 1,
+        "created_by_id": 1,
+    },
+    {
+        "job_id": "JOB-2",
+        "job_role": "Data Scientist",
+        "description": "Analyze data to provide insights and build models.",
+        "job_type": "full_time",
+        "location": "in_office",
+        "salary": 90000,
+        "start_date": date(2024, 2, 1),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 2,
+        "created_by_id": 2,
+    },
+    {
+        "job_id": "JOB-3",
+        "job_role": "UX Designer",
+        "description": "Design user interfaces for web and mobile applications.",
+        "job_type": "part_time",
+        "location": "hybrid",
+        "salary": 50000,
+        "start_date": date(2024, 3, 5),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 3,
+        "created_by_id": 3,
+    },
+    {
+        "job_id": "JOB-4",
+        "job_role": "Marketing Manager",
+        "description": "Manage marketing campaigns and strategies.",
+        "job_type": "full_time",
+        "location": "remote",
+        "salary": 70000,
+        "start_date": date(2024, 4, 10),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 4,
+        "created_by_id": 4,
+    },
+    {
+        "job_id": "JOB-5",
+        "job_role": "Sales Executive",
+        "description": "Sales representative for B2B products.",
+        "job_type": "full_time",
+        "location": "in_office",
+        "salary": 60000,
+        "start_date": date(2024, 5, 1),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 5,
+        "created_by_id": 5,
+    },
+    {
+        "job_id": "JOB-6",
+        "job_role": "Product Manager",
+        "description": "Lead product development and management.",
+        "job_type": "full_time",
+        "location": "remote",
+        "salary": 85000,
+        "start_date": date(2024, 6, 15),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 6,
+        "created_by_id": 6,
+    },
+    {
+        "job_id": "JOB-7",
+        "job_role": "Project Coordinator",
+        "description": "Coordinate project schedules and teams.",
+        "job_type": "part_time",
+        "location": "hybrid",
+        "salary": 45000,
+        "start_date": date(2024, 7, 20),
+        "last_date_to_apply": date(2024, 12, 31),
+        "company_id": 7,
+        "created_by_id": 7,
+    },
+]
+
+for job_data in dummy_jobs:
+    job = Job(**job_data)
+    job.save()
+#Job Applications -----------------------------------------------------------------------
+from home.models import JobApplications
+from datetime import datetime
+
+dummy_job_applications = [
+    {
+        "job": 1,  # Job ID of the job being applied for
+        "student": 1,  # Student ID applying for the job
+        "date_of_applied": datetime.now(),
+        "status": "Pending",
+    },
+    {
+        "job": 2,
+        "student": 2,
+        "date_of_applied": datetime.now(),
+        "status": "Accepted",
+    },
+    {
+        "job": 3,
+        "student": 3,
+        "date_of_applied": datetime.now(),
+        "status": "Pending",
+    },
+    {
+        "job": 4,
+        "student": 4,
+        "date_of_applied": datetime.now(),
+        "status": "Rejected",
+    },
+    {
+        "job": 5,
+        "student": 5,
+        "date_of_applied": datetime.now(),
+        "status": "Accepted",
+    },
+    {
+        "job": 6,
+        "student": 6,
+        "date_of_applied": datetime.now(),
+        "status": "Pending",
+    },
+    {
+        "job": 7,
+        "student": 7,
+        "date_of_applied": datetime.now(),
+        "status": "Rejected",
+    },
+]
+
+for application_data in dummy_job_applications:
+    job_application = JobApplications(**application_data)
+    job_application.save()
+#Notices ------------------------------------------------------------
+from home.models import Notice
+from datetime import datetime
+
+dummy_notices = [
+    {
+        "announcement_text": "Important announcement about the upcoming semester schedule.",
+        "created_by": 1,  # Admin ID who created the notice
+        "recipient": 1,  # Student ID for the recipient
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "Reminder to submit your internship applications by the end of the week.",
+        "created_by": 2,
+        "recipient": 2,
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "New job openings are available for software developers.",
+        "created_by": 3,
+        "recipient": 3,
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "Don't forget to update your profile with the latest resume for job applications.",
+        "created_by": 1,
+        "recipient": 4,
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "There will be a workshop on Data Science next Friday.",
+        "created_by": 2,
+        "recipient": 5,
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "Join the online seminar on Artificial Intelligence and its future trends.",
+        "created_by": 3,
+        "recipient": 6,
+        "date_created": datetime.now(),
+    },
+    {
+        "announcement_text": "Check out the new updates on the student portal for more information.",
+        "created_by": 1,
+        "recipient": 7,
+        "date_created": datetime.now(),
+    },
+]
+
+for notice_data in dummy_notices:
+    notice = Notice(**notice_data)
+    notice.save()
+# Events------------------------------------------------------
+from home.models import Event
+from datetime import date
+
+dummy_events = [
+    {
+        "title": "Tech Conference 2024",
+        "description": "A conference to discuss the latest trends in technology.",
+        "date": date(2024, 3, 15),
+        "location": "Conference Hall A",
+    },
+    {
+        "title": "Data Science Workshop",
+        "description": "A hands-on workshop on Data Science and Machine Learning.",
+        "date": date(2024, 4, 20),
+        "location": "Room 101, Science Building",
+    },
+    {
+        "title": "AI Research Symposium",
+        "description": "Presentations and discussions on the latest AI research.",
+        "date": date(2024, 5, 10),
+        "location": "Main Auditorium",
+    },
+    {
+        "title": "Career Fair 2024",
+        "description": "A career fair for students and recent graduates to meet top companies.",
+        "date": date(2024, 6, 5),
+        "location": "University Campus Grounds",
+    },
+    {
+        "title": "Hackathon 2024",
+        "description": "A 24-hour hackathon for students to work on innovative projects.",
+        "date": date(2024, 7, 12),
+        "location": "Engineering Block, University",
+    },
+    {
+        "title": "Networking Event for Entrepreneurs",
+        "description": "An event for startups and entrepreneurs to network and collaborate.",
+        "date": date(2024, 8, 25),
+        "location": "Innovation Hub, Tech Park",
+    },
+    {
+        "title": "Graduation Ceremony 2024",
+        "description": "The official graduation ceremony for the Class of 2024.",
+        "date": date(2024, 12, 15),
+        "location": "Main Auditorium",
+    },
+]
+
+for event_data in dummy_events:
+    event = Event(**event_data)
+    event.save()
+
+
+
