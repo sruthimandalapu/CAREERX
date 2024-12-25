@@ -596,6 +596,355 @@ for admin in admins:
 python shell:
 python manage.py shell
 python manage.py makemigrations
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+#Student, Company, Admin, Internship, Job, Notice, Event
+
+# EVENT CRUD OPERATIONS ---------------------------------------------------------------------------------------
+def add_event(event_id,title,description,date,location):
+    event_count = Event.objects.count()
+    new_event=Event(
+        event_id=event_count+1,
+        title=title,
+        description=description,
+        date=date,
+        location=location
+        )
+    new_event.save()
+
+def update_event(event_id,title,description,date,location):
+    event=Event.objects.get(event_id=event_id)
+    event.title=title
+    event.description=description
+    event.date=date
+    event.location=location
+    event.save()
+
+def delete_event(event_id):
+    event=Event.objects.get(event_id=event_id)
+    event.delete()
+
+def view_all_events():
+    events = Event.objects.all()
+    e=[]
+    for event in events:
+        lst=[]
+        lst.append(event.event_id)
+        lst.append(event.title)
+        lst.append(event.description)
+        lst.append(event.date)
+        lst.append(event.location)
+        e.append(lst)
+    return e
+
+
+# STUDENT CRUD OPERATIONS -------------------------------------------------------------------------------------------
+def add_student(full_name,email,contact_number,date_of_birth,gender,r_number,department,cgpa,password):
+    student_count = Student.objects.count()
+    new_student=Student(
+        student_id=student_count+1,
+        full_name=full_name,
+        email=email,
+        contact_number=contact_number,
+        date_of_birth=date_of_birth,
+        r_number=r_number,
+        department=department,
+        cgpa=cgpa,
+        password=password
+        )
+    new_student.save()
+
+def update_student(student_id,full_name,email,contact_number,date_of_birth,gender,r_number,department,cgpa):
+    student=Student.objects.get(student_id=student_id)
+    student.full_name=full_name
+    student.email=email
+    student.contact_number=contact_number
+    student.date_of_birth=date_of_birth
+    student.r_number=r_number
+    student.department=department
+    student.cgpa=cgpa
+    #student.password=password
+    student.save()
+
+def delete_student(student_id):
+    student=Student.objects.get(student_id=student_id)
+    student.delete()
+
+def view_particular_student(student_id):
+	student=Student.objects.get(student_id=student_id)
+	lst=[]
+    lst.append(student.full_name)
+    lst.append(student.email)
+    lst.append(student.contact_number)
+    lst.append(student.date_of_birth)
+    lst.append(student.gender)
+    lst.append(student.r_number)
+    lst.append(student.department)
+    lst.append(student.cgpa)
+    return lst
+
+def view_all_students():
+    students = Student.objects.all()
+    s=[]
+    for student in students:
+        lst=[]
+        lst.append(student.student_id)
+        lst.append(student.full_name)
+        lst.append(student.email)
+        lst.append(student.contact_number)
+        lst.append(student.date_of_birth)
+        lst.append(student.gender)
+        lst.append(student.r_number)
+        lst.append(student.department)
+        lst.append(student.cgpa)
+        e.append(lst)
+    return e
+
+
+# COMPANY CRUD OPERATIONS --------------------------------------------------------------------------------------------
+def add_company(company_name,email,contact_number,street_number,city,state,country,pincode):
+    company_count = Company.objects.count()
+    new_company=Company(
+        company_id=company_count+1,
+        email=email,
+        contact_number=contact_number,
+        street_number=street_number,
+        city=city,
+        state=state,
+        country=country,
+        pincode=pincode
+        )
+    new_company.save()
+
+def update_company(company_id,company_name,email,contact_number,street_number,city,state,country,pincode):
+    company=Company.objects.get(company_id=company_id)
+    company.email=email
+    company.contact_number=contact_number
+    company.street_number=street_number
+    company.city=city
+    company.state=state
+    company.country=country
+    company.pincode=pincode
+    company.save()
+
+def delete_company(company_id):
+    company=Company.objects.get(company_id=company_id)
+    company.delete()
+
+def view_particular_company(company_id):
+	company=Company.objects.get(company_id=company_id)
+	lst=[]
+    lst.append(company.company_name)
+    lst.append(company.email)
+    lst.append(company.contact_number)
+    lst.append(company.street_number)
+    lst.append(company.city)
+    lst.append(company.state)
+    lst.append(company.country)
+    lst.append(company.pincode)
+    return lst
+
+def view_all_companies():
+    companies = Company.objects.all()
+    e=[]
+    for company in companies:
+        lst=[]
+        lst.append(company.company_id)
+        lst.append(company.company_name)
+        lst.append(company.email)
+        lst.append(company.contact_number)
+        lst.append(company.street_number)
+        lst.append(company.city)
+        lst.append(company.state)
+        lst.append(company.country)
+        lst.append(company.pincode)
+        e.append(lst)
+    return e
+
+
+# ADMIN CRUD OPERATIONS -----------------------------------------------------------------------------------------------
+def view_particular_admin(admin_id):
+	admin=Admin.objects.get(admin_id=admin_id)
+	lst=[]
+    lst.append(admin.full_name)
+    lst.append(admin.email)
+    lst.append(admin.contact_number)
+    lst.append(company.age)
+    lst.append(company.gender)
+    return lst
+
+def update_admin(admin_id,full_name,email,contact_number,age,gender):
+    admin=Admin.objects.get(admin_id=admin_id)
+    admin.full_name=full_name
+    admin.email=email
+    admin.contact_number=contact_number
+    admin.age=age
+    admin.gender=gender
+    company.save()
+
+
+# INTERNSHIP CRUD OPERATIONS ----------------------------------------------------------------------------------------
+def add_internship(internship_id,role,description,duration,type,location,stiphend,company,created_by,posted_date):
+    internship_count = Internship.objects.count()
+    new_internship=Internship(
+        internship_id=internship_count+1,
+        role=role,
+        description=description,
+        duration=duration,
+        type=type,
+        location=location,
+        stiphend=stiphend,
+        company=company,
+        created_by=created_by,
+        posted_date=posted_date
+        )
+    new_internship.save()
+
+def update_internship(internship_id,role,description,duration,type,location,stiphend,company,created_by,posted_date):
+    internship=Internship.objects.get(internship_id=internship_id)
+    internship.role=role
+    internship.description=description
+    internship.duration=duration
+    internship.type=type
+    internship.location=location
+    internship.stiphend=stiphend
+    internship.company=company
+    internship.created_by=created_by
+    internship.posted_date=posted_date
+    internship.save()
+
+def delete_internship(internship_id):
+    internship=Internship.objects.get(internship_id=internship_id)
+    internship.delete()
+
+def view_particular_internship(internship_id):
+	internship=Internship.objects.get(internship_id=internship_id)
+	lst=[]
+    lst.append(internship.role)
+    lst.append(internship.description)
+    lst.append(internship.duration)
+    lst.append(internship.type)
+    lst.append(internship.location)
+    lst.append(internship.stiphend)
+    lst.append(internship.company)
+    lst.append(internship.created_by)
+    lst.append(internship.posted_date)
+    return lst
+
+
+def view_all_internships():
+    internships = Internship.objects.all()
+    e=[]
+    for internship in internships:
+        lst=[]
+        lst.append(internship.intership_id)
+        lst.append(internship.role)
+        lst.append(internship.description)
+        lst.append(internship.duration)
+        lst.append(internship.type)
+        lst.append(internship.location)
+	    lst.append(internship.stiphend)
+	    lst.append(internship.company)
+	    lst.append(internship.created_by)
+	    lst.append(internship.posted_date)
+        e.append(lst)
+    return e
+
+# JOB CRUD OPERATIONS ----------------------------------------------------------------------------------------------
+def add_job(job_id,name,description,company,created_by,posted_date):
+    job_count = Job.objects.count()
+    new_job=Job(
+        job_id=internship_count+1,
+        name=name,
+        description=description,
+        company=company,
+        created_by=created_by,
+        posted_date=posted_date
+        )
+    new_job.save()
+
+def update_job(job_id,name,description,company,created_by,posted_date):
+    job=Job.objects.get(job_id=job_id)
+    job.name=name
+    job.description=description
+    job.company=company
+    job.created_by=created_by
+    job.posted_date=posted_date
+    job.save()
+
+def delete_job(job_id):
+    job=Job.objects.get(job_id=job_id)
+    job.delete()
+
+def view_particular_job(job_id):
+	job=Job.objects.get(job_id=job_id)
+	lst=[]
+    lst.append(job.name)
+    lst.append(job.description)
+    lst.append(job.company)
+    lst.append(job.created_by)
+    lst.append(job.posted_date)
+    return lst
+
+def view_all_jobs():
+    jobs = Jobs.objects.all()
+    e=[]
+    for job in jobs:
+        lst=[]
+        lst.append(job.name)
+	    lst.append(job.description)
+	    lst.append(job.company)
+	    lst.append(job.created_by)
+	    lst.append(job.posted_date)
+        e.append(lst)
+    return e
+
+# NOTICES CRUD OPERATIONS ----------------------------------------------------------------------------------
+def add_notice(notice_id,announcement_text,created_by,recipient,date_created):
+    notice_count = Notice.objects.count()
+    new_notice=Notice(
+        notice_id=notice_count+1,
+        announcement_text=announcement_text,
+        created_by=created_by,
+        recipient=recipient,
+        date_created=date_created
+        )
+    new_notice.save()
+
+def update_notice(notice_id,announcement_text,created_by,recipient,date_created):
+    notice=Notice.objects.get(notice_id=notice_id)
+    notice.announcement_text=announcement_text
+    notice.created_by=created_by
+    notice.recipient=recipient
+    notice.date_created=date_created
+    notice.save()
+
+def delete_notice(notice_id):
+    notice=Notice.objects.get(notice_id=notice_id)
+    notice.delete()
+
+def view_particular_notice(notice_id):
+	notice=Notice.objects.get(notice_id=notice_id)
+	lst=[]
+    lst.append(notice.announcement_text)
+    lst.append(notice.created_by)
+    lst.append(notice.recipient)
+    lst.append(notice.created_by)
+    return lst
+
+def view_all_notices():
+    notices = Notice.objects.all()
+    e=[]
+    for notice in notices:
+        lst=[]
+        lst.append(notice.announcement_text)
+	    lst.append(notice.created_by)
+	    lst.append(notice.recipient)
+	    lst.append(notice.created_by)
+        e.append(lst)
+    return e
 
 
 
