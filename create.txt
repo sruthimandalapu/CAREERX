@@ -1,19 +1,1 @@
-create 
-admin1 = Admin.objects.create(
-    user=user1,
-    full_name="Admin One",
-    email="admin1@example.com",
-    contact_number="1234567890",
-    age="30",
-    gender="Male",
-    password="password123"
-)
-Select all
-admins = Admin.objects.all()
-for admin in admins:
-    ...:     print(admin.full_name)
-
-python shell:
-python manage.py shell
-python manage.py makemigrations
 
